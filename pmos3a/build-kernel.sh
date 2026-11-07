@@ -16,7 +16,7 @@ cd linux
 
 grep -q asteroids arch/arm64/boot/dts/qcom/Makefile || echo 'dtb-$(CONFIG_ARCH_QCOM) += milos-nothing-asteroids.dtb' >> arch/arm64/boot/dts/qcom/Makefile
 cp $SRC/upstream-4a/kernel/config-milos.aarch64 .config
-./scripts/config -e SPI_QCOM_GENI -e FB_SIMPLE -e DRM_SIMPLEDRM -e FRAMEBUFFER_CONSOLE -e VT -e VT_CONSOLE -e SYSFB_SIMPLEFB
+./scripts/config -e BLK_DEV_LOOP -e SQUASHFS -e OVERLAY_FS -e SPI_QCOM_GENI -e FB_SIMPLE -e DRM_SIMPLEDRM -e FRAMEBUFFER_CONSOLE -e VT -e VT_CONSOLE -e SYSFB_SIMPLEFB
 make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- olddefconfig >/dev/null
 make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -j$(nproc) Image
 mkdir -p $SRC/pmos3a/out

@@ -43,8 +43,7 @@ echo "got $(stat -c %s /ram/rootfs) of $SZ bytes, md5 $(md5sum /ram/rootfs | cut
 if [ "$(head -c 4 /ram/rootfs)" = hsqs ]; then
 	# squashfs (send-rootfs.py out/rootfs.sqfs): stays compressed in RAM, writes go to a tmpfs
 	# overlay; about 1 GB less RAM than unpacking, and no unpack time
-	insmod /lib/squashfs.ko
-	insmod /lib/overlay.ko
+	# squashfs, overlay and loop are built into the kernel (build-kernel.sh), no modules needed
 	mkdir -p /ram/ro /ram/upper /ram/work
 	mount -t squashfs -o loop,ro /ram/rootfs /ram/ro &&
 		mount -t overlay overlay -o lowerdir=/ram/ro,upperdir=/ram/upper,workdir=/ram/work /newroot &&
